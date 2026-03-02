@@ -91,10 +91,10 @@ GET /tasks/
 ```
 
 **Query Parameters:**
-- `status` (optional): Filter by status (Pending, Completed, Archived)
-- `priority` (optional): Filter by priority (Low, Medium, High)
-- `due_date` (optional): Filter by due date (YYYY-MM-DD)
-- `page` (optional): Page number for pagination
+- `status`: Filter by status (Pending, Completed, Archived)
+- `priority`: Filter by priority (Low, Medium, High)
+- `due_date`: Filter by due date (YYYY-MM-DD)
+- `page`: Page number for pagination
 
 **Response (200):**
 ```json

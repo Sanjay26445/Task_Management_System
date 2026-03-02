@@ -40,7 +40,6 @@ task-management-system/
 │   │   ├── contexts/     # React contexts
 │   │   └── utils/        # Utilities
 │   └── package.json
-└── docker-compose.yml
 ```
 
 ## Setup Instructions
@@ -50,7 +49,6 @@ task-management-system/
 - Python 3.10+
 - Node.js 18+
 - PostgreSQL 14+
-- Docker (optional)
 
 ### Backend Setup
 
@@ -86,7 +84,7 @@ DATABASE_PORT=5432
 python manage.py migrate
 ```
 
-6. Create superuser (optional):
+6. Create superuser:
 ```bash
 python manage.py createsuperuser
 ```
@@ -121,12 +119,6 @@ npm run dev
 ```
 
 Frontend will be available at `http://localhost:5173`
-
-### Docker Setup (Alternative)
-
-```bash
-docker-compose up --build
-```
 
 ## JWT Authentication Flow
 
@@ -195,7 +187,7 @@ docker-compose up --build
 ### Feedback Table
 - `id`: Primary key
 - `user_id`: Foreign key to Users
-- `task_id`: Foreign key to Tasks (optional)
+- `task_id`: Foreign key to Tasks (nullable)
 - `comment`: Feedback text
 - `rating`: Integer (1-5)
 - `created_at`: Timestamp
@@ -204,7 +196,7 @@ docker-compose up --build
 - One User has many Tasks (1:N)
 - One Task has many TaskHistory records (1:N)
 - One User has many Feedback records (1:N)
-- One Task has many Feedback records (1:N, optional)
+- One Task has many Feedback records (1:N, nullable)
 
 ### Indexes
 - `tasks.user_id` - for filtering user tasks

@@ -58,14 +58,14 @@
 ├─────────────────────────┤
 │ PK  id                  │
 │ FK  user_id             │
-│ FK  task_id (optional)  │
+│ FK  task_id (nullable)  │
 │     comment             │
 │     rating (1-5)        │
 │     created_at          │
 └─────────────────────────┘
            ▲
            │
-           │ N:1 (optional)
+           │ N:1 (nullable)
            │
 ┌─────────────────────────┐
 │        Tasks            │
@@ -93,9 +93,9 @@
 - Foreign Key: `feedback.user_id` references `users.id`
 - On Delete: CASCADE
 
-### Tasks → Feedback (One-to-Many, Optional)
+### Tasks → Feedback (One-to-Many)
 - One task can have many feedback entries
-- Feedback can optionally be associated with a task
+- Feedback can be associated with a task
 - Foreign Key: `feedback.task_id` references `tasks.id` (nullable)
 - On Delete: CASCADE
 
@@ -117,7 +117,7 @@
 - `description`: Task description (TEXT)
 - `priority`: Enum ('Low', 'Medium', 'High')
 - `status`: Enum ('Pending', 'Completed', 'Archived')
-- `due_date`: Optional due date (DATE, nullable)
+- `due_date`: Due date (DATE, nullable)
 - `created_at`: Timestamp of task creation
 - `updated_at`: Timestamp of last update (auto-updated)
 
@@ -131,7 +131,7 @@
 ### Feedback
 - `id`: Auto-incrementing primary key
 - `user_id`: Foreign key to Users
-- `task_id`: Optional foreign key to Tasks (nullable)
+- `task_id`: Foreign key to Tasks (nullable)
 - `comment`: Feedback text (TEXT)
 - `rating`: Integer rating 1-5 (with validators)
 - `created_at`: Timestamp of feedback creation
@@ -224,4 +224,22 @@ The database follows **Third Normal Form (3NF)**:
    ```
    Uses: Index on task_id
 
-4. Analytics queries benefit from status and priority indexes
+4. Analytics queries benefit from status and priority indexes:
+   ```sql
+   SELECT COUNT(*) FROM tasks WHERE user_id = ? AND status = 'Completed'
+   ```
+   Uses: Composite index (user_id, status)
+
+## Summary
+
+This ER diagram represents a well-normalized, efficient database schema for the Task Management System with:
+
+- 4 main entities (Users, Tasks, TaskHistory, Feedback)
+- Clear relationships with proper foreign keys
+- Strategic indexing for performance
+- Data integrity through constraints
+- Audit trail via TaskHistory
+- Third Normal Form (3NF) compliance
+- Optimized for common query patterns
+
+The schema supports all application features including authentication, task management, history tracking, feedback, and analytics while maintaining data integrity and performance.
