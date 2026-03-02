@@ -288,14 +288,3 @@ python manage.py test
 cd frontend
 npm test
 ```
-
-## Deployment
-
-The application can be deployed using:
-- Backend: Heroku, Railway, DigitalOcean
-- Frontend: Vercel, Netlify
-- Database: Managed PostgreSQL (AWS RDS, DigitalOcean)
-
-## License
-
-MIT
